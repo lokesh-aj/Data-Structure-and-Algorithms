@@ -1,0 +1,161 @@
+import java.util.Scanner;
+
+/**
+ * The Array class demonstrates various operations on a static array including:
+ * 1. Checking if the array is empty or contains a single element.
+ * 2. Inserting and deleting elements.
+ * 3. Finding the size of the array and traversing its elements.
+ * 4. Searching for an element in the array.
+ * 5. Calculating the memory location of a value using base indexing.
+ * 
+ * This program simulates basic array operations with bounds checking 
+ * and provides memory location computation using a hypothetical base index.
+ */
+class Array {
+
+    /**
+     * Checks whether the array is empty.
+     * @param lb the lower bound of the array (initially -1 for empty array)
+     * @param ub the upper bound of the array (initially -1 for empty array)
+     * @return a string indicating whether the array is empty or not
+     */
+    public static String isEmpty(int lb, int ub) {
+        if (lb == -1 && ub == -1) {
+            return "Array is Empty";
+        } else {
+            return "Array is not empty";
+        }
+    }
+
+    /**
+     * Checks if the array contains exactly one element.
+     * @param lb the lower bound of the array
+     * @param ub the upper bound of the array
+     * @return a string indicating if the array has one, no, or more than one element
+     */
+    public static String isOne(int lb, int ub) {
+        if (lb == 0 && ub == 0) {
+            return "Only one value is present in the array";
+        } else if (lb == -1 && ub == -1) {
+            return "No value is present in the array";
+        } else {
+            return "More than One value is present in the array";
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int arr[] = new int[5];  // Array with a fixed size of 5 elements
+
+        // Initialize lower and upper bounds (-1 indicates an empty array)
+        int lb = -1, ub = -1;
+        int max_val = 4;  // Maximum valid index is 4 (since array length is 5)
+
+        // Base address and size of each element in memory (for calculating memory location)
+        int base_index = 1001;
+        int size_of_datatype = 4;
+        int current_location = -1;
+
+        while (true) {
+            // Display menu options to the user
+            System.out.println("Enter your choice: ");
+            System.out.println("\t 1. Check if the array is empty" +
+                    "\n\t 2. Check if there is only one element in the array" +
+                    "\n\t 3. Find the size of the array" +
+                    "\n\t 4. Insert into array" +
+                    "\n\t 5. Delete from array" +
+                    "\n\t 6. Traverse the elements" +
+                    "\n\t 7. Search an element in the array" +
+                    "\n\t 8. Find memory location of a value");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Check if the array is empty
+                    System.out.println(isEmpty(lb, ub));
+                    break;
+                case 2:
+                    // Check if there is exactly one element in the array
+                    System.out.println(isOne(lb, ub));
+                    break;
+                case 3:
+                    // Find the current size of the array
+                    if (lb == -1 && ub == -1) {
+                        System.out.println("Array is empty. Size is -1");
+                    } else {
+                        int length_array = ub - lb + 1;
+                        System.out.println("Size of the array is: " + length_array);
+                    }
+                    break;
+                case 4:
+                    // Insert an element into the array
+                    System.out.println("Enter the value to insert: ");
+                    int value = sc.nextInt();
+                    if (lb == -1 && ub == -1) {
+                        lb = 0;
+                        ub = 0;
+                        arr[ub] = value;
+                    } else if (ub == max_val) {
+                        System.out.println("Array is full. Can't insert value.");
+                    } else {
+                        ub++;
+                        arr[ub] = value;
+                    }
+                    break;
+                case 5:
+                    // Delete an element from the array
+                    if (lb == -1 && ub == -1) {
+                        System.out.println("Array is empty. Can't delete elements.");
+                    } else {
+                        ub--;
+                        System.out.println("Value removed.");
+                    }
+                    break;
+                case 6:
+                    // Traverse and display the elements in the array
+                    System.out.print("|");
+                    for (int i = 0; i <= ub; i++) {
+                        System.out.print(" " + arr[i] + " ");
+                    }
+                    System.out.println("|");
+                    break;
+                case 7:
+                    // Search for an element in the array
+                    System.out.println("Enter the element to search: ");
+                    int search = sc.nextInt();
+                    int index = -1;
+                    for (int i = 0; i <= ub; i++) {
+                        if (search == arr[i]) {
+                            index = i;
+                        }
+                    }
+                    if (index != -1) {
+                        System.out.println("Value is at index " + (index + 1));
+                    } else {
+                        System.out.println("Value not found.");
+                    }
+                    break;
+                case 8:
+                    // Find the memory location of a given value using base indexing
+                    System.out.println("Enter the value to find memory location: ");
+                    int val = sc.nextInt();
+                    int count = -1;
+                    for (int i = 0; i <= ub; i++) {
+                        if (val == arr[i]) {
+                            count = i;
+                        }
+                    }
+                    if (count != -1) {
+                        current_location = count;
+                        int memory_location = base_index + (size_of_datatype * (current_location - lb));
+                        System.out.println("Memory Location is: " + memory_location);
+                    } else {
+                        System.out.println("Value not found.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
