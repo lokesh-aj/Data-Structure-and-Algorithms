@@ -185,7 +185,7 @@ class LL {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        LL list = new LL();
+      LL list = new LL();
 
         list.traverseList();
         list.getSize();
@@ -197,4 +197,44 @@ class LL {
 
         list.traverseList();
         list.getSize();
-        list
+        list.addFirst("b");
+
+        list.traverseList();
+        list.getSize();
+        list.addMiddle("1");
+
+        list.traverseList();
+        list.getSize();
+        list.addMiddle("2");
+
+        list.traverseList();
+        list.getSize();
+        list.addMiddle("3");
+
+        list.traverseList();
+        list.getSize();
+        list.addLast("a");
+
+        list.traverseList();
+        list.getSize();
+        list.deleteFirst();
+
+        list.traverseList();
+        list.getSize();
+        list.deleteMiddle();
+
+        list.traverseList();
+        list.getSize();
+        list.deleteFirst();
+
+        list.traverseList();
+        list.getSize();
+        list.deleteMiddle();
+
+        list.traverseList();
+        list.getSize();
+        list.deleteLast();
+        list.traverseList();
+        list.getSize();
+    }
+}
