@@ -1,115 +1,160 @@
 import java.util.Scanner;
 
 /**
- * This class represents a singly linked list (LL) structure.
- * It allows adding elements to the front and back of the list,
- * deleting the first and last elements, and traversing the list.
+ * A class to represent a Linked List
  */
 class LL {
-    Node head; // Pointer to the head (first) node of the linked list
-    Node ptr; // Pointer used for traversing the list
-    Node preptr; // Pointer used to store the previous node during traversal
+    // Create a Scanner object to read input from the user
+    Scanner sc = new Scanner(System.in);
 
-    int size = 0; // Keeps track of the size of the list
+    // Head of the linked list
+    Node head;
+
+    // Pointer to traverse the list
+    Node ptr;
+
+    // Previous pointer to traverse the list
+    Node preptr;
+
+    // Size of the linked list
+    int size = 0;
 
     /**
-     * This class represents a single node of the linked list.
+     * A nested class to represent a Node in the linked list
      */
     class Node {
-        String data; // Data to store in the node
-        Node next; // Pointer to the next node in the list
+        String data;
+        Node next;
 
         /**
-         * Constructor to create a new node with given data.
-         * @param _data The data to be stored in the node
+         * Constructor to create a new Node with the given data
+         * @param _data the data to be stored in the Node
          */
         public Node(String _data) {
             this.data = _data;
             this.next = null;
-            size++; // Increase size when a new node is created
+            size++; // increment the size of the linked list
         }
     }
 
     /**
-     * Adds a new node with the given data at the front of the list.
-     * @param data The data to be added to the list
+     * Method to add a new node at the beginning of the linked list
+     * @param data the data to be stored in the new node
      */
     public void addFirst(String data) {
         Node newnode = new Node(data);
 
-        // If the list is empty, make the new node the head
         if (head == null) {
             head = newnode;
             return;
         }
 
-        // New node points to the current head and becomes the new head
         newnode.next = head;
         head = newnode;
     }
 
     /**
-     * Adds a new node with the given data at the end of the list.
-     * @param data The data to be added to the list
+     * Method to add a new node at a specific position in the linked list
+     * @param data the data to be stored in the new node
+     */
+    public void addMiddle(String data){
+        Node newnode = new Node(data);
+        System.out.println("Enter the position of the node to be inserted: ");
+        int pos = sc.nextInt();
+        if(head==null){
+            head=newnode;
+            return;
+        }
+
+        ptr = head;
+        preptr = head;
+
+        for(int i=0; i<pos-1 ; i++){
+            ptr = ptr.next;
+        }
+
+        while (preptr.next!=ptr) {
+            preptr = preptr.next;
+        }
+
+        newnode.next = ptr;
+        preptr.next = newnode;
+    }
+
+    /**
+     * Method to add a new node at the end of the linked list
+     * @param data the data to be stored in the new node
      */
     public void addLast(String data) {
         Node newnode = new Node(data);
-
-        // If the list is empty, make the new node the head
         if (head == null) {
             head = newnode;
             return;
         }
 
-        // Traverse the list to find the last node
         ptr = head;
+
         while (ptr.next != null) {
             ptr = ptr.next;
         }
 
-        // Append the new node at the end of the list
         ptr.next = newnode;
     }
 
     /**
-     * Traverses the list and prints each node's data.
+     * Method to traverse the linked list and print its elements
      */
     public void traverseList() {
-        // If the list is empty, display a message
         if (head == null) {
             System.out.println("List is Empty");
             return;
         }
 
-        // Start from the head and print each node's data
         ptr = head;
+
         while (ptr != null) {
             System.out.print(ptr.data + " -> ");
             ptr = ptr.next;
         }
-        System.out.println("Null"); // Indicate the end of the list
+        System.out.println("Null");
     }
 
     /**
-     * Deletes the first node (head) of the list.
+     * Method to delete the first node in the linked list
      */
     public void deleteFirst() {
-        // If the list is empty, display a message
         if (head == null) {
             System.out.println("List is Empty");
             return;
         }
 
-        // Move the head pointer to the next node
         head = head.next;
-        size--; // Decrease the size as the first node is deleted
+        size--;
     }
 
     /**
-     * Deletes the last node of the list.
+     * Method to delete a node at a specific position in the linked list
+     */
+    public void deleteMiddle(){
+        System.out.println("Enter the position from where you want to remove the node");
+        int pos = sc.nextInt();
+
+        ptr=head;
+        preptr=head;
+
+        for(int i=0; i<pos;i++){
+            ptr = ptr.next;
+        }
+        for(int j=0;j<pos-2;j++){
+            preptr = preptr.next;
+        }
+        preptr.next = ptr;
+    }
+
+    /**
+     * Method to delete the last node in the linked list
      */
     public void deleteLast() {
-        // If the list is empty, display a message
         if (head == null) {
             System.out.println("List is Empty");
             return;
@@ -118,39 +163,30 @@ class LL {
         ptr = head;
         preptr = head;
 
-        // Traverse the list to find the last node
         while (ptr.next != null) {
             ptr = ptr.next;
         }
 
-        // Traverse again to find the second last node
         while (preptr.next != ptr) {
             preptr = preptr.next;
         }
 
-        // Disconnect the last node
         preptr.next = null;
-        size--; // Decrease the size as the last node is deleted
+        size--;
     }
 
     /**
-     * Prints the size of the list.
+     * Method to get the size of the linked list
      */
     public void getSize() {
         System.out.println("Size : " + size);
     }
 
-    /**
-     * The main method to test the linked list operations.
-     * @param args Command-line arguments (not used)
-     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Create an empty linked list
         LL list = new LL();
 
-        // Perform various operations on the linked list
         list.traverseList();
         list.getSize();
         list.addFirst("d");
@@ -161,20 +197,4 @@ class LL {
 
         list.traverseList();
         list.getSize();
-        list.addFirst("b");
-
-        list.traverseList();
-        list.getSize();
-        list.addLast("a");
-
-        list.traverseList();
-        list.getSize();
-        list.deleteFirst();
-
-        list.traverseList();
-        list.getSize();
-        list.deleteLast();
-        list.traverseList();
-        list.getSize();
-    }
-}
+        list
