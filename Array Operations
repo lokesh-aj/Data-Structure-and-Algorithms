@@ -39,7 +39,7 @@ class Array {
         } else if (lb == -1 && ub == -1) {
             return "No value is present in the array";
         } else {
-            return "More than One value is present in the array";
+            return "More than one value is present in the array";
         }
     }
 
